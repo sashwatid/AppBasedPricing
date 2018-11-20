@@ -9,7 +9,6 @@ import {
     MatSidenavModule,
     MatToolbarModule
 } from '@angular/material';
-import { TranslateModule } from '@ngx-translate/core';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { TopnavComponent } from './components/topnav/topnav.component';
 import { LayoutRoutingModule } from './layout-routing.module';
@@ -26,8 +25,7 @@ import { NavComponent } from './nav/nav.component';
         MatIconModule,
         MatInputModule,
         MatMenuModule,
-        MatListModule,
-        TranslateModule
+        MatListModule
     ],
     declarations: [LayoutComponent, NavComponent, TopnavComponent, SidebarComponent]
 })
