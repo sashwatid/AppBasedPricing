@@ -7,14 +7,13 @@ import {
     MatFormFieldModule, MatInputModule, MatNativeDateModule, MatRadioModule, MatSelectModule,
     MatSliderModule, MatSlideToggleModule, MatIconModule
 } from '@angular/material';
-import { FormFieldComponent } from './form-field/form-field.component';
-import { FormsRoutingModule } from './forms-routing.module';
-import { FormsComponent } from './forms.component';
+import { newRoutingModule } from './new-routing.module';
+import { newComponent } from './new.component';
 
 @NgModule({
     imports: [
         CommonModule,
-        FormsRoutingModule,
+        newRoutingModule,
         MatAutocompleteModule,
         FlexLayoutModule,
         FormModule,
@@ -33,8 +32,7 @@ import { FormsComponent } from './forms.component';
         MatIconModule
     ],
     declarations: [
-        FormFieldComponent,
-        FormsComponent
+        newComponent
     ]
 })
-export class FormsModule {}
+export class newModule {}

@@ -5,12 +5,12 @@ import { AppService } from '../../app.service';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 
 @Component({
-    selector: 'app-forms',
-    templateUrl: './forms.component.html',
-    styleUrls: ['./forms.component.scss']
+    selector: 'app-new',
+    templateUrl: './new.component.html',
+    styleUrls: ['./new.component.scss']
 })
-export class FormsComponent implements OnInit {
-  bookForm: FormGroup;
+export class newComponent implements OnInit {
+  attributeForm: FormGroup;
   isbn:string='';
   title:string='';
   description:string='';
@@ -22,7 +22,7 @@ export class FormsComponent implements OnInit {
   constructor(private router: Router, private api: AppService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.bookForm = this.formBuilder.group({
+    this.attributeForm = this.formBuilder.group({
      'isbn' : [null, Validators.required],
      'title' : [null, Validators.required],
      'description' : [null, Validators.required],
@@ -41,6 +41,7 @@ export class FormsComponent implements OnInit {
 
 
   onFormSubmit(form:NgForm) {
+    alert("here");
     this.api.postQuote(form)
       .subscribe(res => {
           let id = res['_id'];

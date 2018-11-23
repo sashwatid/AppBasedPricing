@@ -41,12 +41,14 @@ export class AppService {
       catchError(this.handleError));
   }
   getAttributes(): Observable<any> {
+    alert("getAttributes");
     return this.http.get(apiUrl, httpOptions).pipe(
-      map(this.extractData),
+
       catchError(this.handleError));
   }
 
   postQuote(data): Observable<any> {
+    alert("here too"+apiUrl);
     return this.http.post(apiUrl, data, httpOptions)
       .pipe(
         catchError(this.handleError)

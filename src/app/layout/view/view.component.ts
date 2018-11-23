@@ -2,11 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 @Component({
-    selector: 'app-tables',
-    templateUrl: './tables.component.html',
-    styleUrls: ['./tables.component.scss']
+    selector: 'app-view',
+    templateUrl: './view.component.html',
+    styleUrls: ['./view.component.scss']
 })
-export class TablesComponent implements OnInit {
+export class viewComponent implements OnInit {
     displayedColumns = ['id', 'name', 'progress', 'color'];
     dataSource: MatTableDataSource<UserData>;
 

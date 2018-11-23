@@ -19,12 +19,12 @@ const routes: Routes = [
 
             {
                 path: 'new',
-                loadChildren: './forms/forms.module#FormsModule'
+                loadChildren: './new/new.module#newModule'
             },
 
             {
                 path: 'view',
-                loadChildren: './tables/tables.module#TablesModule'
+                loadChildren: './view/view.module#viewModule'
             }
 
         ]

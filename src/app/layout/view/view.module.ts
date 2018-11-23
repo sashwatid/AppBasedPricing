@@ -4,18 +4,18 @@ import { MatTableModule } from '@angular/material';
 import { MatFormFieldModule, MatPaginatorModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
 
-import { TablesRoutingModule } from './tables-routing.module';
-import { TablesComponent } from './tables.component';
+import { viewRoutingModule } from './view-routing.module';
+import { viewComponent } from './view.component';
 
 @NgModule({
     imports: [
         CommonModule,
-        TablesRoutingModule,
+        viewRoutingModule,
         MatTableModule,
         MatFormFieldModule,
         MatPaginatorModule,
         MatInputModule
     ],
-    declarations: [TablesComponent]
+    declarations: [viewComponent]
 })
-export class TablesModule {}
+export class viewModule {}
