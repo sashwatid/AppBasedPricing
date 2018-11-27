@@ -9,10 +9,22 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        color: #0389D6;
+        .alert-warning{
+          color: #eb0000 !important;
+          font-size: 16px !important;
+        }
         .app-name {
-            margin-top: 0px;
+            margin-top: 10px;
             padding-bottom: 10px;
             font-size: 32px;
+        }
+        .sr-only{
+          margin-top: 10px;
+          margin-bottom: 15px;
+          font-size: 18px;
+          margin-right: 10px;
+          width: 100%;
         }
         .login-form {
             padding: 40px;
@@ -22,6 +34,15 @@
             input:-webkit-autofill {
                 -webkit-box-shadow: 0 0 0 30px white inset;
             }
+        }
+        .buttons {
+          margin-top: 10px;
+          margin-bottom: 15px;
+          font-size: 18px;
+          margin-right: 10px;
+          text-align: center;
+          width: 100%;
+          color: #000372;
         }
     }
 
@@ -46,7 +67,4 @@
 }
 .text-center {
     text-align: center;
-}
-.w-100 {
-    width: 100%;
 }

@@ -11,19 +11,48 @@ import {
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-
-import { AppRoutingModule } from './app-routing.module';
+import { FormsModule } from '@angular/forms';
+//import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SignupComponent } from './signup/signup.component';
+import{LoginComponent} from './login/login.component';
+import { RouterModule, Routes } from '@angular/router';
+
+const appRoutes: Routes = [
+
+  {
+    path: 'login',
+    component: LoginComponent,
+    data: { title: 'Login' }
+  },
+  {
+    path: 'signup',
+    component: SignupComponent,
+    data: { title: 'Sign Up' }
+  },
+  { path: '',
+    redirectTo: '/login',
+    pathMatch: 'full'
+  },
+  {
+      path: 'appPricing',
+      loadChildren: './layout/layout.module#LayoutModule'
+  }
+];
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [AppComponent, SignupComponent, LoginComponent],
     imports: [
         BrowserModule,
-        AppRoutingModule,
         BrowserAnimationsModule,
         LayoutModule,
         OverlayModule,
-        HttpClientModule
+        HttpClientModule,
+        FormsModule,
+        RouterModule.forRoot(
+          appRoutes,
+          { enableTracing: true } // <-- debugging purposes only
+        )
     ],
     providers: [],
     bootstrap: [AppComponent]

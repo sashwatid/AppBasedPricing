@@ -1,22 +1,29 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
 var logger = require('morgan');
+var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/mean-angular6')
-  .then(() =>  {alert("connected");console.log('connection succesful');})
-  .catch((err) => {alert("error");console.error(err);});
+var passport = require('passport');
+var config = require('./config/database');
 
-var apiRouter = require('./routes/book');
+mongoose.Promise = require('bluebird');
+mongoose.connect(config.database, { promiseLibrary: require('bluebird') })
+  .then(() =>  console.log('connection succesful'))
+  .catch((err) => console.error(err));
+
+var apiRouter = require('./routes/api');
 
 var app = express();
-
+app.use(passport.initialize());
 app.use(logger('dev'));
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'dist')));
+app.use('/', express.static(path.join(__dirname, 'dist')));
+app.use('/login', express.static(path.join(__dirname, 'dist')));
 app.use('/api', apiRouter);
 
 
