@@ -14,6 +14,9 @@ mongoose.connect(config.database, { promiseLibrary: require('bluebird') })
   .catch((err) => console.error(err));
 
 var apiRouter = require('./routes/api');
+var appDataRouter = require('./routes/appDataRouter');
+var attributeRouter = require('./routes/attributeRouter');
+var appRatingRouter = require('./routes/appRatingRouter');
 
 var app = express();
 app.use(passport.initialize());
@@ -26,6 +29,9 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use('/', express.static(path.join(__dirname, 'dist')));
 app.use('/login', express.static(path.join(__dirname, 'dist')));
 app.use('/api', apiRouter);
+app.use('/appD',appDataRouter);
+app.use('/attr',attributeRouter);
+app.use('/appR',appRatingRouter);
 
 
 // catch 404 and forward to error handler
