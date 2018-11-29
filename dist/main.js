@@ -207,7 +207,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"login-page\">\n    <div class=\"content\">\n    <form class=\"login-form\" (ngSubmit)=\"login()\" #loginForm=\"ngForm\">\n\n        <div class=\"text-center\">\n          <h2 class=\"app-name\">Please sign in</h2>\n        </div>\n        <div class=\"alert alert-warning alert-dismissible\" role=\"alert\" *ngIf=\"message !== ''\">\n          {{message}}\n        </div>\n        <div fxFlex fxLayout=\"row\" fxLayout.lt-md=\"column\">\n          <div fxFlexFill>\n            <label for=\"inputUsername\" class=\"sr-only\">Username</label>\n          </div>\n        </div>\n        <div fxFlex fxLayout=\"row\" fxLayout.lt-md=\"column\">\n          <div fxFlexFill>\n            <input type=\"username\" class=\"sr-only\" [(ngModel)]=\"loginData.username\" name=\"username\" required/>\n          </div>\n        </div>\n        <div fxFlex fxLayout=\"row\" fxLayout.lt-md=\"column\">\n          <div fxFlexFill>\n            <label for=\"inputPassword\" class=\"sr-only\">Password</label>\n          </div>\n       </div>\n       <div fxFlex fxLayout=\"row\" fxLayout.lt-md=\"column\">\n         <div fxFlexFill>\n           <input type=\"password\" class=\"sr-only\" [(ngModel)]=\"loginData.password\" name=\"password\" required/>\n         </div>\n       </div>\n       <div fxFlex fxLayout=\"row\" fxLayout.lt-md=\"column\">\n         <div fxFlexFill>\n           <button  class=\"buttons\"  (click)=\"onLogin()\" [disabled]=\"!loginForm.form.valid\">Login</button>\n         </div>\n      </div>\n      <p>\n          Not a member? <a [routerLink]=\"['/signup']\">Signup here</a>\n      </p>\n    </form>\n  </div>\n</div>\n"
+module.exports = "<div class=\"login-page\">\n    <div class=\"content\">\n    <form class=\"login-form\" (ngSubmit)=\"login()\" #loginForm=\"ngForm\">\n\n        <div class=\"text-center\">\n          <h2 class=\"app-name\">Please sign in</h2>\n        </div>\n        <div class=\"alert alert-warning alert-dismissible\" role=\"alert\" *ngIf=\"message !== ''\">\n          {{message}}\n        </div>\n        <div fxFlex fxLayout=\"row\" fxLayout.lt-md=\"column\">\n          <div fxFlexFill>\n            <label for=\"inputUsername\" class=\"sr-only\">Username</label>\n          </div>\n        </div>\n        <div fxFlex fxLayout=\"row\" fxLayout.lt-md=\"column\">\n          <div fxFlexFill>\n            <input type=\"username\" class=\"sr-only\" [(ngModel)]=\"loginData.username\" name=\"username\" required/>\n          </div>\n        </div>\n        <div fxFlex fxLayout=\"row\" fxLayout.lt-md=\"column\">\n          <div fxFlexFill>\n            <label for=\"inputPassword\" class=\"sr-only\">Password</label>\n          </div>\n       </div>\n       <div fxFlex fxLayout=\"row\" fxLayout.lt-md=\"column\">\n         <div fxFlexFill>\n           <input type=\"password\" class=\"sr-only\" [(ngModel)]=\"loginData.password\" name=\"password\" required/>\n         </div>\n       </div>\n       <div fxFlex fxLayout=\"row\" fxLayout.lt-md=\"column\">\n         <div fxFlexFill>\n           <button  class=\"buttons\"   [disabled]=\"!loginForm.form.valid\">Login</button>\n         </div>\n      </div>\n      <p>\n          Not a member? <a [routerLink]=\"['/signup']\">Signup here</a>\n      </p>\n    </form>\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -254,12 +254,17 @@ var LoginComponent = /** @class */ (function () {
         this.loginData = { username: '', password: '' };
         this.message = '';
     }
-    LoginComponent.prototype.ngOnInit = function () { };
+    LoginComponent.prototype.ngOnInit = function () {
+        // remove saved data if any
+        localStorage.removeItem('jwtToken');
+        localStorage.removeItem('username');
+    };
     LoginComponent.prototype.login = function () {
         var _this = this;
         this.http.post('/api/signin', this.loginData).subscribe(function (resp) {
             _this.data = resp;
             localStorage.setItem('jwtToken', _this.data.token);
+            localStorage.setItem('username', _this.data.username);
             _this.router.navigate(['/appPricing']);
         }, function (err) {
             _this.message = err.error.msg;

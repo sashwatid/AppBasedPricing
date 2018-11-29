@@ -78,7 +78,7 @@ var SidebarComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar color=\"primary\" class=\"fix-nav\">\n    <button type=\"button\" mat-icon-button class=\"visible-md\" (click)=\"toggleSidebar()\">\n        <mat-icon aria-label=\"Side nav toggle icon\">menu</mat-icon>\n    </button>\n    <div class=\"nav-brand\">\n        App Based Pricing\n    </div>\n\n    <span class=\"nav-spacer\"></span>\n    welcome {{username}}\n    <button class=\"hidden-sm\" mat-icon-button [matMenuTriggerFor]=\"profile\">\n        <mat-icon>account_circle</mat-icon>\n    </button>\n    <mat-menu #profile=\"matMenu\">\n        <button mat-menu-item>\n            <mat-icon>person</mat-icon>\n            <span>Profile</span>\n        </button>\n        <button mat-menu-item>\n            <mat-icon>inbox</mat-icon>\n            <span>Inbox</span>\n        </button>\n        <button mat-menu-item>\n            <mat-icon>settings</mat-icon>\n            <span>Settings</span>\n        </button>\n    </mat-menu>\n    <button mat-icon-button (click)=\"onLoggedout()\">\n        <mat-icon>exit_to_app</mat-icon>\n    </button>\n</mat-toolbar>\n"
+module.exports = "<mat-toolbar color=\"primary\" class=\"fix-nav\">\n\n    <div class=\"nav-brand\">\n        App Based Pricing\n    </div>\n\n    <span class=\"nav-spacer\"></span>\n    welcome {{username}}\n    <div class=\"hidden-sm\" >\n        <mat-icon>account_circle</mat-icon>\n    </div>\n\n    <button mat-icon-button (click)=\"onLoggedout()\">\n        <mat-icon>exit_to_app</mat-icon>\n    </button>\n</mat-toolbar>\n"
 
 /***/ }),
 
@@ -104,6 +104,7 @@ module.exports = ":host {\n  display: block;\n  position: fixed;\n  left: 0;\n  
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TopnavComponent", function() { return TopnavComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -114,10 +115,18 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var TopnavComponent = /** @class */ (function () {
-    function TopnavComponent() {
+    function TopnavComponent(router) {
+        this.router = router;
     }
     TopnavComponent.prototype.ngOnInit = function () {
+        this.username = localStorage.getItem("username");
+    };
+    TopnavComponent.prototype.onLoggedout = function () {
+        localStorage.removeItem('jwtToken');
+        localStorage.removeItem('username');
+        this.router.navigate(['login']);
     };
     TopnavComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -125,7 +134,7 @@ var TopnavComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./topnav.component.html */ "./src/app/layout/components/topnav/topnav.component.html"),
             styles: [__webpack_require__(/*! ./topnav.component.scss */ "./src/app/layout/components/topnav/topnav.component.scss")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_1__["Router"]])
     ], TopnavComponent);
     return TopnavComponent;
 }());
@@ -203,7 +212,7 @@ var LayoutRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<!-- <app-nav></app-nav> -->\n<app-topnav></app-topnav>\n<app-sidebar></app-sidebar>\n<div class=\"main-container\">\n    <router-outlet></router-outlet>\n</div>"
+module.exports = "<!-- <app-nav></app-nav> -->\n<app-topnav ></app-topnav>\n<app-sidebar></app-sidebar>\n<div class=\"main-container\">\n    <router-outlet></router-outlet>\n</div>\n"
 
 /***/ }),
 
@@ -248,25 +257,19 @@ var LayoutComponent = /** @class */ (function () {
         this.http = http;
         this.router = router;
     }
-    //data =any;
     LayoutComponent.prototype.ngOnInit = function () {
         var _this = this;
+        console.log("from init..");
+        console.log(localStorage.getItem('jwtToken'));
         var httpOptions = {
             headers: new _angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpHeaders"]({ 'Authorization': localStorage.getItem('jwtToken') })
         };
         this.http.get('/api/dashboard', httpOptions).subscribe(function (res) {
             console.log("welcome....");
-            //  this.data = res;
             console.log(res);
         }, function (err) {
-            if (err.status === 401) {
-                _this.router.navigate(['login']);
-            }
+            _this.router.navigate(['login']);
         });
-    };
-    LayoutComponent.prototype.logout = function () {
-        localStorage.removeItem('jwtToken');
-        this.router.navigate(['login']);
     };
     LayoutComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({

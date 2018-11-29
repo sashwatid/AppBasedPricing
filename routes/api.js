@@ -46,8 +46,8 @@ router.post('/signin', function(req, res) {
         if (isMatch && !err) {
           // if user is found and password is right create a token
           var token = jwt.sign(user.toJSON(), config.secret);
-          // return the information including token as JSON
-          res.json({success: true, token: 'JWT ' + token});
+            console.log(user.username);
+            res.json({success: true, token: 'JWT ' + token, username: user.username});
         } else {
           res.status(401).send({success: false, msg: errorMsg});
         }
@@ -64,14 +64,7 @@ router.get('/dashboard', passport.authenticate('jwt', { session: false}), functi
     return res.status(403).send({success: false, msg: 'Unauthorized.'});
   }
 });
-router.post('/dashboard', passport.authenticate('jwt', { session: false}), function(req, res) {
-  var token = getToken(req.headers);
-  if (token) {
-      res.json({success: true});
-  } else {
-    return res.status(403).send({success: false, msg: 'Unauthorized.'});
-  }
-});
+
 getToken = function (headers) {
   if (headers && headers.authorization) {
     var parted = headers.authorization.split(' ');

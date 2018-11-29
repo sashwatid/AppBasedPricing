@@ -11,25 +11,21 @@ import { Observable } from 'rxjs';
 export class LayoutComponent implements OnInit {
 
     constructor(private http: HttpClient, private router: Router) { }
-    //data =any;
 
     ngOnInit() {
+      console.log("from init..");
+      console.log(localStorage.getItem('jwtToken') );
       let httpOptions = {
         headers: new HttpHeaders({ 'Authorization': localStorage.getItem('jwtToken') })
       };
       this.http.get('/api/dashboard', httpOptions).subscribe(res => {
         console.log("welcome....");
-      //  this.data = res;
         console.log(res);
       }, err => {
-        if(err.status === 401) {
           this.router.navigate(['login']);
-        }
       });
     }
 
-    logout() {
-      localStorage.removeItem('jwtToken');
-      this.router.navigate(['login']);
-    }
+
+
 }

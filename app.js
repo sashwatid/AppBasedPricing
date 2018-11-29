@@ -17,6 +17,7 @@ var apiRouter = require('./routes/api');
 
 var app = express();
 app.use(passport.initialize());
+app.use(passport.session());
 app.use(logger('dev'));
 app.use(express.json());
 

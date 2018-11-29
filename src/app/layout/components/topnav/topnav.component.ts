@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Component, OnInit,Input } from '@angular/core';
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -9,11 +9,18 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class TopnavComponent implements OnInit {
 
+   constructor( private router: Router) { }
 
-    constructor() { }
+   username: String;
 
     ngOnInit() {
+      this.username = localStorage.getItem("username");
   }
+  onLoggedout(){
+    localStorage.removeItem('jwtToken');
+    localStorage.removeItem('username');
+    this.router.navigate(['login']);
 
+  }
 
 }
